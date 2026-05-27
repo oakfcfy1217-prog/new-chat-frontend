@@ -9,7 +9,9 @@ body {
 
 .app {
 
-  max-width: 500px;
+  width: 100%;
+
+  max-width: 430px;
 
   margin: auto;
 
@@ -42,10 +44,11 @@ body {
 
   flex: 1;
 
-  padding: 15px;
-
   background: #ededed;
-  padding: 0 6px 20px;
+
+  padding: 0 10px 20px;
+
+  box-sizing: border-box;
 }
 
 .message-row {
@@ -54,7 +57,9 @@ body {
 
   align-items: flex-start;
 
-   margin: 10px 8px;
+  margin: 10px 0;
+
+  width: 100%;
 }
 .message-row.right {
   justify-content: flex-end;
@@ -69,23 +74,36 @@ body {
 
   flex-direction: column;
 
-  align-items: center;
+  align-items: flex-start;
 }
 .avatar {
   width: 38px;
+
   height: 38px;
 
   border-radius: 8px;
 
-  margin: 0 2px;
+  margin: 0 6px;
+
+  flex-shrink: 0;
 }
 
 .bubble {
-  max-width: 240px;
+  max-width: 72vw;
+
   padding: 12px;
+
   border-radius: 10px;
+
   background: white;
+
   font-size: 15px;
+
+  line-height: 1.5;
+
+  word-break: break-word;
+
+  text-align: left;
 }
 
 .right .bubble {
@@ -217,11 +235,12 @@ body {
 }
 .search-bar {
   position: sticky;
-  top: 80px;
+  top: 87px;
   z-index: 999;
 
   background: #ededed;
   padding: 10px;
+  box-sizing: border-box;
 }
 
 .search-input {
