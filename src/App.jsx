@@ -5,6 +5,8 @@ function App() {
 const [search, setSearch] = useState("")
 const [messages, setMessages] = useState([])
 const [previewImage, setPreviewImage] = useState("")
+const [showMenu, setShowMenu] = useState(false)
+const [showCalendar, setShowCalendar] = useState(false)
 
 useEffect(() => {
 
@@ -15,8 +17,11 @@ useEffect(() => {
     })
 
 }, [])
+ const uniqueDates = [
+  ...new Set(messages.map(msg => msg.date))
+]
   const filteredMessages = messages.filter((msg) => {
-
+  
   if (!search) return true
 
   return (
@@ -27,12 +32,23 @@ useEffect(() => {
 })
 
   return (
-
+        <>
     <div className="app">
 
       <div className="top-bar">
-        ੯‧̀͡⬮王王子
-      </div>
+
+  <div className="top-title">
+    ੯‧̀͡⬮王王子
+  </div>
+
+  <div
+    className="menu-btn"
+    onClick={() => setShowMenu(!showMenu)}
+  >
+    ⋯
+  </div>
+
+</div>
 <div className="search-bar">
 
   <input
@@ -43,6 +59,28 @@ useEffect(() => {
   />
 
 </div>
+      {
+  showMenu && (
+
+    <div className="menu-popup">
+
+      <div
+        className="menu-item"
+        onClick={() => {
+
+          setShowCalendar(true)
+
+          setShowMenu(false)
+
+        }}
+      >
+        查找聊天内容
+      </div>
+
+    </div>
+
+  )
+}
       <div className="chat-area">
 
        {filteredMessages.map((msg, index) => (
@@ -53,7 +91,10 @@ useEffect(() => {
   index === 0 ||
   messages[index - 1].date !== msg.date
     ? (
-      <div className="date-divider">
+      <div
+  className="date-divider"
+  id={msg.date}
+>
         {msg.date}
       </div>
     )
@@ -175,6 +216,32 @@ useEffect(() => {
 
   )
 }
+{
+  msg.type === "invite" && (
+
+    <div className="invite-card">
+
+      <div className="invite-left">
+
+        <div className="invite-title">
+          {msg.inviteTitle}
+        </div>
+
+        <div className="invite-desc">
+          {msg.inviteDesc}
+        </div>
+
+      </div>
+
+      <img
+        className="invite-image"
+        src={msg.inviteImage}
+      />
+
+    </div>
+
+  )
+}
             </div>
 
             <img
@@ -281,6 +348,32 @@ useEffect(() => {
 
   )
 }
+{
+  msg.type === "invite" && (
+
+    <div className="invite-card">
+
+      <div className="invite-left">
+
+        <div className="invite-title">
+          {msg.inviteTitle}
+        </div>
+
+        <div className="invite-desc">
+          {msg.inviteDesc}
+        </div>
+
+      </div>
+
+      <img
+        className="invite-image"
+        src={msg.inviteImage}
+      />
+
+    </div>
+
+  )
+}
             </div>
           </>
         )
@@ -293,11 +386,68 @@ useEffect(() => {
 
 ))}
 
-      </div>
+            </div>
 
     </div>
 
+    {
+      showCalendar && (
+
+        <div className="calendar-page">
+
+          <div className="calendar-header">
+
+            <div
+              className="calendar-back"
+              onClick={() => setShowCalendar(false)}
+            >
+              返回
+            </div>
+
+            <div className="calendar-title">
+              按日期查找
+            </div>
+
+          </div>
+
+          <div className="calendar-grid">
+
+            {
+              uniqueDates.map((date) => (
+
+                <div
+                  className="calendar-day"
+                  key={date}
+                  onClick={() => {
+
+                    setShowCalendar(false)
+
+                    setTimeout(() => {
+
+                      document
+                        .getElementById(date)
+                        ?.scrollIntoView({
+                          behavior: "smooth"
+                        })
+
+                    }, 100)
+
+                  }}
+                >
+                  {date}
+                </div>
+
+              ))
+            }
+
+          </div>
+
+        </div>
+
+      )
+    }
+</>
   )
 }
- 
+
 export default App

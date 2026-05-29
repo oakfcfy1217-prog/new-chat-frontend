@@ -117,7 +117,17 @@ lines.forEach((line) => {
   if (type === "file") {
     msg.file = value
   }
+  
+  // 群聊邀请卡片
+  if (type === "invite") {
 
+  const inviteParts = value.split("|")
+
+  msg.inviteTitle = inviteParts[0]
+  msg.inviteDesc = inviteParts[1]
+  msg.inviteImage = inviteParts[2]
+
+}
   messages.push(msg)
 
 })

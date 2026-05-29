@@ -316,3 +316,57 @@ body {
   text-overflow: ellipsis;
 
 }
+.invite-card {
+
+  width: 260px;
+
+  background: white;
+
+  border-radius: 12px;
+
+  padding: 12px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 10px;
+}
+
+.invite-left {
+
+  flex: 1;
+}
+
+.invite-title {
+
+  font-size: 15px;
+
+  font-weight: bold;
+
+  margin-bottom: 8px;
+
+  color: #222;
+}
+
+.invite-desc {
+
+  font-size: 12px;
+
+  color: #777;
+
+  line-height: 1.5;
+}
+
+.invite-image {
+
+  width: 56px;
+
+  height: 56px;
+
+  border-radius: 8px;
+
+  object-fit: cover;
+}
