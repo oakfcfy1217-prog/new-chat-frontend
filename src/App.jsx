@@ -19,6 +19,20 @@ useEffect(() => {
  const uniqueDates = [
   ...new Set(messages.map(msg => msg.date))
 ]
+
+const groupedDates = {}
+
+uniqueDates.forEach((date) => {
+
+  const month = date.slice(0, 7)
+
+  if (!groupedDates[month]) {
+    groupedDates[month] = []
+  }
+
+  groupedDates[month].push(date)
+
+})
   const filteredMessages = messages.filter((msg) => {
   
   if (!search) return true
@@ -398,58 +412,78 @@ useEffect(() => {
     </div>
 
     <div className="calendar-card">
+{
+  Object.entries(groupedDates).map(([month, dates]) => (
 
-      {
-        uniqueDates.map((date) => (
+    <div
+      className="month-group"
+      key={month}
+    >
 
-          <div
-            key={date}
-            className="calendar-item"
-            onClick={() => {
+      <div className="month-title">
+        {month.replace("-", "年")}月
+      </div>
 
-              setShowCalendar(false)
+      <div className="calendar-card">
 
-              setTimeout(() => {
+        {
+          dates.map((date) => (
 
-                document
-                  .getElementById(date)
-                  ?.scrollIntoView({
-                    behavior:"smooth"
-                  })
+            <div
+              key={date}
+              className="calendar-item"
+              onClick={() => {
 
-              },100)
+                setShowCalendar(false)
 
-            }}
-          >
+                setTimeout(() => {
 
-            <div className="calendar-left">
+                  document
+                    .getElementById(date)
+                    ?.scrollIntoView({
+                      behavior:"smooth"
+                    })
 
-              <div className="calendar-day-number">
-                {date.slice(8)}
+                },100)
+
+              }}
+            >
+
+              <div className="calendar-left">
+
+                <div className="calendar-day-number">
+                  {date.slice(8)}
+                </div>
+
+                <div className="calendar-date-text">
+
+                  <div className="calendar-date-main">
+                    {date.slice(5)}
+                  </div>
+
+                  <div className="calendar-date-sub">
+                    聊天记录
+                  </div>
+
+                </div>
+
               </div>
 
-              <div className="calendar-date-text">
-
-                <div className="calendar-date-main">
-                  {date}
-                </div>
-
-                <div className="calendar-date-sub">
-                  聊天记录
-                </div>
-
+              <div className="calendar-arrow">
+                ＞
               </div>
 
             </div>
 
-            <div className="calendar-arrow">
-              ＞
-            </div>
+          ))
+        }
 
-          </div>
+      </div>
 
-        ))
-      }
+    </div>
+
+  ))
+}
 
     </div>
 
@@ -460,6 +494,23 @@ useEffect(() => {
 
       )
     }
+{
+  previewImage && (
+
+    <div
+      className="image-preview"
+      onClick={() => setPreviewImage("")}
+    >
+
+      <img
+        className="preview-img"
+        src={previewImage}
+      />
+
+    </div>
+
+  )
+}
 </>
   )
 }
