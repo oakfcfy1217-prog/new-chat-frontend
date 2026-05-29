@@ -5,7 +5,6 @@ function App() {
 const [search, setSearch] = useState("")
 const [messages, setMessages] = useState([])
 const [previewImage, setPreviewImage] = useState("")
-const [showMenu, setShowMenu] = useState(false)
 const [showCalendar, setShowCalendar] = useState(false)
 
 useEffect(() => {
@@ -43,7 +42,7 @@ useEffect(() => {
 
   <div
     className="menu-btn"
-    onClick={() => setShowMenu(!showMenu)}
+    onClick={() => setShowCalendar(true)}
   >
     ⋯
   </div>
@@ -59,28 +58,6 @@ useEffect(() => {
   />
 
 </div>
-      {
-  showMenu && (
-
-    <div className="menu-popup">
-
-      <div
-        className="menu-item"
-        onClick={() => {
-
-          setShowCalendar(true)
-
-          setShowMenu(false)
-
-        }}
-      >
-        查找聊天内容
-      </div>
-
-    </div>
-
-  )
-}
       <div className="chat-area">
 
        {filteredMessages.map((msg, index) => (
@@ -410,38 +387,75 @@ useEffect(() => {
 
           </div>
 
-          <div className="calendar-grid">
+         
 
-            {
-              uniqueDates.map((date) => (
+        <div className="calendar-list">
 
-                <div
-                  className="calendar-day"
-                  key={date}
-                  onClick={() => {
+  <div className="month-group">
 
-                    setShowCalendar(false)
+    <div className="month-title">
+      2026年5月
+    </div>
 
-                    setTimeout(() => {
+    <div className="calendar-card">
 
-                      document
-                        .getElementById(date)
-                        ?.scrollIntoView({
-                          behavior: "smooth"
-                        })
+      {
+        uniqueDates.map((date) => (
 
-                    }, 100)
+          <div
+            key={date}
+            className="calendar-item"
+            onClick={() => {
 
-                  }}
-                >
+              setShowCalendar(false)
+
+              setTimeout(() => {
+
+                document
+                  .getElementById(date)
+                  ?.scrollIntoView({
+                    behavior:"smooth"
+                  })
+
+              },100)
+
+            }}
+          >
+
+            <div className="calendar-left">
+
+              <div className="calendar-day-number">
+                {date.slice(8)}
+              </div>
+
+              <div className="calendar-date-text">
+
+                <div className="calendar-date-main">
                   {date}
                 </div>
 
-              ))
-            }
+                <div className="calendar-date-sub">
+                  聊天记录
+                </div>
+
+              </div>
+
+            </div>
+
+            <div className="calendar-arrow">
+              ＞
+            </div>
 
           </div>
 
+        ))
+      }
+
+    </div>
+
+  </div>
+
+</div>
         </div>
 
       )
